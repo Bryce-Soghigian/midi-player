@@ -51,6 +51,31 @@ from any working directory:
 Ctrl-C stops and sends note-off for every sounding note plus all-notes-off and
 sustain-pedal-up on all 16 channels, so nothing is left ringing.
 
+## Practice mode
+
+`practice` loops bar ranges, isolates hands, and can replace a recording's
+rubato with a steady tempo you can actually play along to.
+
+```sh
+./practice song.mid --info                     # bar count and note distribution
+./practice song.mid --bars 28-44               # loop a section
+./practice song.mid --bars 28-44 --hand left   # one hand
+./practice song.mid --bars 1-8 --bpm 50        # steady 50 bpm, no rubato
+./practice song.mid --bars 1-8 --loop 0        # repeat until Ctrl-C
+./practice song.mid --bars 1-8 --loop 5 --rest 2
+./practice song.mid --bars 1-8 --split 55      # override the hand split
+```
+
+Hands are separated by a per-bar split point chosen by weighted 1-D 2-means
+over that bar's pitches, rather than a fixed note. A fixed split breaks on
+music that puts both hands in one register, and splitting on the widest pitch
+gap breaks whenever an accompaniment figure sits closer to the melody than to
+the bass. Pass `--split <note>` to force a fixed one.
+
+`--bpm` ignores the file's tempo map entirely. Recorded performances encode
+their rubato as tempo changes -- this prelude has over 80 of them -- which is
+what you want to listen to and the opposite of what you want to practise with.
+
 ## Notes
 
 Timing is scheduled against an absolute monotonic clock rather than by sleeping
