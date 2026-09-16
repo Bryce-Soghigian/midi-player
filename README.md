@@ -40,6 +40,14 @@ Confirm with `./play --list`.
 ./play song.mid -c 0                 # force all notes onto channel 0
 ```
 
+Filenames resolve against the script's own directory as a fallback, so it works
+from any working directory:
+
+```sh
+~/midi-player/play music/clair-de-lune.mid    # from anywhere
+~/midi-player/play clair-de-lune.mid          # bare name, found in music/
+```
+
 Ctrl-C stops and sends note-off for every sounding note plus all-notes-off and
 sustain-pedal-up on all 16 channels, so nothing is left ringing.
 

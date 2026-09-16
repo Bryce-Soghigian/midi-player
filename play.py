@@ -2,12 +2,24 @@
 """Play MIDI files to a hardware MIDI device (default: Roland FP-10)."""
 
 import argparse
+import os
 import sys
 import time
 
 import mido
 
 DEFAULT_MATCH = ("fp-10", "fp10", "roland", "digital piano")
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+
+def resolve(path):
+    """Allow paths relative to the script dir, so it works from any cwd."""
+    if os.path.exists(path):
+        return path
+    for cand in (os.path.join(HERE, path), os.path.join(HERE, "music", path)):
+        if os.path.exists(cand):
+            return cand
+    sys.exit(f"No such MIDI file: {path}")
 
 
 def pick_port(hint):
@@ -40,6 +52,7 @@ def silence(out, active):
 
 
 def play(path, out, transpose=0, speed=1.0, channel=None):
+    path = resolve(path)
     mid = mido.MidiFile(path)
     print(f"{path}  ({mid.length / speed:.1f}s)")
     active = set()
