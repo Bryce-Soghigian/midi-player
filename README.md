@@ -87,7 +87,10 @@ USB if that matters.
 
 ## Music
 
-`fetch-music.sh` pulls 16 solo piano pieces from
+`fetch-music.sh` also pulls the engraved score for the Raindrop Prelude into
+`scores/`, for reading alongside practice mode.
+
+It pulls 16 solo piano pieces from
 [mfiles.co.uk](https://www.mfiles.co.uk/classical-midi.htm). The compositions
 are public domain; the MIDI sequences are mfiles' own work, offered free for
 personal use, so they are **not** redistributed here — the script downloads

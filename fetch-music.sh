@@ -35,4 +35,18 @@ get reverie-traumerei.mid                      schumann-traumerei.mid
 get rachmaninoff-prelude-in-c-sharp-minor.mid  rachmaninoff-prelude-csharp.mid
 get pachelbels-canon-arranged.mid              pachelbel-canon-piano.mid
 
-echo "done -> $(pwd)"
+cd ..
+mkdir -p scores && cd scores
+if [ -f chopin-raindrop-prelude-op28-no15.pdf ]; then
+  echo "  have  chopin-raindrop-prelude-op28-no15.pdf"
+elif curl -sS -m 60 -fL -A "$UA" -e "https://www.mfiles.co.uk/scores/prelude15.htm" \
+       -o chopin-raindrop-prelude-op28-no15.pdf \
+       "https://www.mfiles.co.uk/scores/prelude15.pdf" \
+     && head -c 4 chopin-raindrop-prelude-op28-no15.pdf | grep -q "%PDF"; then
+  echo "  got   chopin-raindrop-prelude-op28-no15.pdf"
+else
+  echo "  FAIL  score PDF" >&2
+  rm -f chopin-raindrop-prelude-op28-no15.pdf
+fi
+
+echo "done"
