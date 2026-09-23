@@ -35,6 +35,11 @@ get reverie-traumerei.mid                      schumann-traumerei.mid
 get rachmaninoff-prelude-in-c-sharp-minor.mid  rachmaninoff-prelude-csharp.mid
 get pachelbels-canon-arranged.mid              pachelbel-canon-piano.mid
 
+# Hanon finger exercises 1-8, as an even-tempo reference
+for i in 01 02 03 04 05 06 07 08; do
+  get "hanon-exercise-$i.mid" "hanon-exercise-$i.mid"
+done
+
 cd ..
 mkdir -p scores && cd scores
 if [ -f chopin-raindrop-prelude-op28-no15.pdf ]; then
