@@ -7,6 +7,7 @@ reference instead.
 """
 
 import argparse
+import math
 import os
 import sys
 import time
@@ -213,7 +214,7 @@ def main():
     notes, pedal, tpb, mid = extract(path)
     bpb = beats_per_bar(mid)
     bar_ticks = bpb * tpb
-    total_bars = int(max(n[1] for n in notes) / bar_ticks) + 1
+    total_bars = math.ceil(max(n[1] for n in notes) / bar_ticks)
 
     if args.info:
         print(f"{os.path.basename(path)}: {total_bars} bars, {bpb:g} beats/bar, "

@@ -76,6 +76,37 @@ the bass. Pass `--split <note>` to force a fixed one.
 their rubato as tempo changes -- this prelude has over 80 of them -- which is
 what you want to listen to and the opposite of what you want to practise with.
 
+## Scales
+
+`scale` generates a scale as a MIDI file: one note per beat, up then down,
+hands together with the left an octave below the right. Steady by design --
+it is a reference to play against, not a performance.
+
+```sh
+./scale D                        # music/d-major.mid
+./scale Db                       # five flats, for the Consolation/Clair de Lune key
+./scale D --bpm 72               # faster once it is solid
+./scale D -O 2                   # two octaves
+./scale D -H right               # one hand
+./scale A -m harmonic-minor      # also natural-minor
+```
+
+Degrees are spelled on consecutive letters, so D major prints `F#` rather than
+`Gb` and F# harmonic minor prints `E#`. Output lands in `music/`, which is
+gitignored -- regenerate rather than keep the files around.
+
+The closing tonic is held to the end of its bar, so a scale is always a whole
+number of bars and `practice --bars` lines up with it:
+
+```sh
+./practice d-major.mid --bars 1-2 --loop 0     # first half, until Ctrl-C
+./practice d-major.mid --hand right --bpm 50   # thumb-under, slow
+```
+
+For multi-octave scales prefer `./scale D -O 2 -H right` over `practice --hand
+right`: past one octave the two hands overlap in pitch, and the splitter has
+only pitch to go on.
+
 ## Notes
 
 Timing is scheduled against an absolute monotonic clock rather than by sleeping
